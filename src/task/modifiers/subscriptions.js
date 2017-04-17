@@ -1,11 +1,7 @@
-// import assert, { isGen } from '../../util/assert'
-
 /**
-*  The {TaskSubscriber} is responsbile for delegating each
-*  "subscriptions", or callbacks, so that they can be called in the
-*  appropriate context.
+*  Callback {Subscribtions} are called depending on the stage or result
+*  of the task.
 *
-*  @this the {TaskProperty} where the subscriptions are destructured
 *  @note
 *  - We pass the taskInstance as the first parameter to all subscription
 *    callbacks. It can be used directly, `(instance) => ..` or
@@ -17,9 +13,9 @@
 *    be to call it via the task property e.g. `this.task.lastCalled.cancel()`.)
 *
 *
-*  @constructs TaskSubscriber
+*  @constructs task subscriptions
 */
-export default function createTaskSubscriber (host) {
+export default function createSubscriptions (host) {
   var startFn,
       yieldFn,
       cancelFn,
@@ -30,20 +26,17 @@ export default function createTaskSubscriber (host) {
 
   return {
     /**
-     * `Before` instance callbacks.
-     *
-     * These operations are async so that they can be use to timeout logic
-     *  (e.g. the `pause` helper) to better update UI state.
+     * Task instance `before` callbacks.
+     *  @note The functions are sync so that they can be used with timeout logic.
      */
     async asyncBeforeStart (taskInstance) {
       if (startFn) await Reflect.apply(startFn, host, [taskInstance])
     },
     async asyncBeforeYield (taskInstance) {
-      // assert(isGen(taskInstance._operation), 'Only generator operations have the `beforeYield` callback')
       if (yieldFn) await Reflect.apply(yieldFn, host, [taskInstance])
     },
     /**
-     * `On` instance callbacks.
+     * Task instance `on` callbacks.
      */
     onCancel (taskInstance) {
       if (cancelFn) Reflect.apply(cancelFn, host, [taskInstance])
@@ -58,12 +51,15 @@ export default function createTaskSubscriber (host) {
       if (finishFn) Reflect.apply(finishFn, host, [taskInstance])
     },
     /**
-     * `On` property callbacks.
+     * Task `on` callbacks.
      */
     onDispose (taskInstance) {
       if (disposeFn) Reflect.apply(disposeFn, host, [taskInstance])
     },
 
+    /**
+     * @this the {Task} property where the subscriptions are destructured.
+     */
     subscriptions: {
       beforeStart (fn) {
         startFn = fn

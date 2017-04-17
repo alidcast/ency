@@ -16,8 +16,8 @@ import createSubscriptions from './modifiers/subscriptions'
  */
 export default function createTask (host, operation, autorun = true) {
   const { policies, ...configurations } = createPolicies()
-  const { subscriptions, ...callbacks } = createSubscriptions(host)
   const { options, ...bindings } = createBindings()
+  const { subscriptions, ...callbacks } = createSubscriptions(host)
 
   const runner = createRunner(callbacks)
   const createInstance = initInstanceFactory(runner)

@@ -1,36 +1,34 @@
 import assert, { isObj } from '../../util/assert'
 
 /**
-*  The {TaskPolicy} sets the default scheduling for the task
-*  with configuration option.
+*  Scheduling {Policies} define if and when task instances are be run.
 *
-*  @this the {TaskProperty} where the task policy is destructured
-*  @constructs TaskPolicy
+*  @constructs task policies
 */
-export default function createTaskPolicy (_type = 'default', _num = 1, _time = 0) {
+export default function createPolicies (_type = 'default', _num = 1, _time = 0) {
   const flowTypes = ['default', 'enqueue', 'restart', 'drop']
 
-  const currentPolicy = {
+  const currentPolicies = {
     flow: _type,
     delay: _time,
     maxRunning: _num
   }
 
   return {
-    // default configuration
     get policies () {
-      return currentPolicy
+      return currentPolicies
     },
 
     /**
      *  Sets the scheduling rule for repeat calls.
+     *  @this the {Task} property where the task policy is destructured.
      */
     flow (type, opts = {}) {
       assert(flowTypes.indexOf(type) > -1, `${type} is not a flow control option`)
       assert(isObj(opts), `Additional flow options must be passed as an object.`)
-      currentPolicy.flow = type
-      if (Reflect.has(opts, 'delay')) currentPolicy.delay = opts.delay
-      if (Reflect.has(opts, 'maxRunning')) currentPolicy.maxRunning = opts.maxRunning
+      currentPolicies.flow = type
+      if (Reflect.has(opts, 'delay')) currentPolicies.delay = opts.delay
+      if (Reflect.has(opts, 'maxRunning')) currentPolicies.maxRunning = opts.maxRunning
       return this
     }
   }
