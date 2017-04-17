@@ -4,14 +4,20 @@
     ["env", { "modules": false }],
     "stage-2"
   ],
-  "plugins": [
-    "external-helpers"
-  ],
-  "comments": false,
+
   "env": {
-    "test": {
-      "presets": ["env", "stage-2"],
-      "plugins": [ "istanbul" ]
-    }
+    "production": {
+      "plugins": ["external-helpers"]
+    },
+    "development": {
+      "plugins": ["transform-runtime"],
+      "env": {
+        "test": {
+          "presets": ["env", "stage-2"],
+          "plugins": [ "istanbul" ]
+        }
+      }
+    },
+    "comments": false
   }
 }

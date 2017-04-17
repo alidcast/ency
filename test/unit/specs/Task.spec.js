@@ -1,17 +1,18 @@
 /* eslint-disable no-unused-expressions */
 /* global describe, it, expect, beforeEach, sinon */
 
-import createTask from 'src/task/index'
+import initTask from 'src/task/index'
 
 const { spy } = sinon
+const createTask = initTask(null) // init without a host
 
 function * exTask () { return yield 'passed' }
 
-describe('Task Property', function () {
+describe('Task', function () {
   var task,
       callback
   beforeEach(() => {
-    task = createTask(null, exTask, true)
+    task = createTask(exTask, true)
     callback = spy()
   })
 
@@ -60,7 +61,7 @@ describe('Task Property', function () {
   })
 
   it('bindings - keeps instance alive and runs `onDispose` callback', async () => {
-    const infiniteTask = createTask(null, exTask, true)
+    const infiniteTask = createTask(exTask, true)
         .nthCall(1, { keepActive: true })
         .onDispose(() => callback())
     const ti = infiniteTask.run()
@@ -73,7 +74,7 @@ describe('Task Property', function () {
   })
 
   it('subscriptions - finalizes dropped instances', async () => {
-    const task = createTask(null, exTask, true)
+    const task = createTask(exTask, true)
       .flow('drop')
       .onFinish(() => callback())
     const ti1 = task.run()
@@ -86,7 +87,7 @@ describe('Task Property', function () {
   })
 
   it('subscriptions - finalizes waiting tasks', async () => {
-    const task = createTask(null, exTask, true)
+    const task = createTask(exTask, true)
         .flow('enqueue')
         .onFinish(() => callback())
     task.run()

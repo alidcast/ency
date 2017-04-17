@@ -5,6 +5,12 @@ import createPolicies from './modifiers/policies'
 import createBindings from './modifiers/bindings'
 import createSubscriptions from './modifiers/subscriptions'
 
+var host
+export default function initTask (_host) {
+  host = _host
+  return createTask
+}
+
 /**
  * A {Task} exposes state of all task instances and controls for creating
  * and destroying them.
@@ -14,7 +20,7 @@ import createSubscriptions from './modifiers/subscriptions'
  * @param {Boolean} autorun - whether to run automatically (primarily for testing)
  * @constructor Task
  */
-export default function createTask (host, operation, autorun = true) {
+export function createTask (operation, autorun = true) {
   const { policies, ...configurations } = createPolicies()
   const { options, ...bindings } = createBindings()
   const { subscriptions, ...callbacks } = createSubscriptions(host)

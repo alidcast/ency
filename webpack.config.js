@@ -52,7 +52,7 @@ const baseConfig = {
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
-        include: projectRoot,
+        include: projectRoot
       },
       {
         test: /\.(png|jpg|gif|svg)$/,

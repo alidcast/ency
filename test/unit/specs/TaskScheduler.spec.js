@@ -1,9 +1,11 @@
 /* eslint-disable no-unused-expressions */
 /* global describe, it, expect, beforeEach */
 
-import createTask from 'src/task/index'
+import initTask from 'src/task/index'
 import createScheduler from 'src/task/Scheduler'
 import createPolicies from 'src/task/modifiers/policies'
+
+const createTask = initTask(null) // init without a host
 
 function * exTask (error = false) {
   yield 'ongoing'
@@ -22,7 +24,7 @@ describe('Task Scheduler', function () {
 
   beforeEach(() => {
     const { policies } = createPolicies('enqueue', 2)
-    task = createTask(null, exTask, false)
+    task = createTask(exTask, false)
     ti1 = task.run()
     ti2 = task.run()
     ti3 = task.run()

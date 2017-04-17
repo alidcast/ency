@@ -4,7 +4,7 @@
 import createRunner from 'src/task/Runner'
 import initInstanceFactory from 'src/task/Instance'
 import createSubscriptions from 'src/task/modifiers/subscriptions'
-import { createCancelableTimeout } from 'src/observable/Timeout'
+import createCancelableTimeout from 'src/disposables/Timeout'
 import { pause } from 'src/util/async'
 
 const { stub, spy } = sinon
