@@ -110,7 +110,7 @@ describe('Task Runner - Generator Functions', function () {
   it('clears timeout upon cancelation', async () => {
     // test timeout cancelation individually
     const timeoutPreTest = createCancelableTimeout(600)
-    timeoutPreTest._cancel_()
+    timeoutPreTest.unsubscribe()
     expect(timeoutPreTest._v).to.be.equal('timeout canceled')
     expect(timeoutPreTest.isCanceled).to.be.true
 

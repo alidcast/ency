@@ -1,30 +1,18 @@
 /**
- * {TaskInjections} are helpers functions for common async operations that
- * automatically clean up after themselves (or have ways of being identified
- * and canceled) upon task cancelation.
- */
-export default function createTaskInjections () {
-  return {
-    timeout: (duration) => createCancelableTimeout(duration)
-  }
-}
-
-/**
  *  Cancelable Timeout hack.
  *
- *  The timeout can be identified from other promises by asserting existence
- *  of `promise.cancel`.
- *
  *  @notes
- *    - Super() does not have `this` context so we have to create the timer
- *      via a factory function and use closures for the cancelation data.
+ *    - Super() does not have `this` context so we have to use closures
+ *      for the cancelation data.
  *    - Methods outside the constuctor do not persist with the extended
  *      promise object so we have to declare them via `this`.
- *  @constructor Timer
+ *
+ *  @constructor Timeout
  */
-export function createCancelableTimeout (duration) {
+export default function createCancelableTimeout (duration) {
   var timerId,
       cancelPromise
+
   class Timer extends Promise {
     constructor () {
       // Promise Construction
@@ -36,15 +24,12 @@ export function createCancelableTimeout (duration) {
       })
       // Timer Cancelation
       this.isCanceled = false
-      this.cancel = function () {
+      this.unsubscribe = function () {
         if (this._v !== 'timeout done') {
           cancelPromise()
           clearTimeout(timerId)
           this.isCanceled = true
         }
-      }
-      this._cancel_ = function () { // for internal timeout identitication and cancelation
-        this.cancel()
       }
     }
   }
