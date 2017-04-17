@@ -30,6 +30,8 @@ export function createTask (operation, autorun = true) {
 
   let scheduler // bound on run
   return {
+    _operation: operation,
+    
     // last instance data
     lastCalled: null,
     lastStarted: null,

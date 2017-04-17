@@ -10,12 +10,16 @@ module.exports = {
   dest: 'dist/build.js',
   format: 'umd',
   moduleName: 'Ency',
+  external (id) { // modules that should remain external 
+    if (/babel-runtime\/.*/i.test(id)) return true
+  },
   plugins: [
     replace({ __VERSION__: version }),
-    resolve(),
     babel({
-      exclude: 'node_modules/**' // only transpile our source code
+      exclude: 'node_modules/**', // only transpile our source code
+      runtimeHelpers: true
     }),
+    resolve(),
     uglify(),
     filesize()
   ],
