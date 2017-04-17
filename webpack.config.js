@@ -17,7 +17,7 @@ const baseConfig = {
     alias: {
       'vue$': 'vue/dist/vue.common.js', // vue standalone build
       'src': srcRoot,
-      'util': resolve(__dirname, './util')
+      'util': resolve(__dirname, './util'),
       'demo': resolve(__dirname, './demo')
     },
     modules: [
@@ -88,36 +88,36 @@ const devConfig = {
     ]
 }
 
-const prodConfig = {
-  entry: `${srcRoot}/index.js`,
-  output: {
-    path: prodRoot,
-    publicPath: '/dist/',
-    filename: 'build.js',
-    library: 'ency',
-    libraryTarget: 'umd'
-  },
-  externals: {
-    vue: 'vue'
-  },
-  devtool: '#source-map',
-  plugins: (baseConfig.plugins || []).concat([
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"'
-      }
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      compress: {
-        warnings: false
-      }
-    }),
-    new webpack.LoaderOptionsPlugin({
-      minimize: true
-    })
-  ])
-}
+// const prodConfig = {
+//   entry: `${srcRoot}/index.js`,
+//   output: {
+//     path: prodRoot,
+//     publicPath: '/dist/',
+//     filename: 'build.js',
+//     library: 'ency',
+//     libraryTarget: 'umd'
+//   },
+//   externals: {
+//     vue: 'vue'
+//   },
+//   devtool: '#source-map',
+//   plugins: (baseConfig.plugins || []).concat([
+//     new webpack.DefinePlugin({
+//       'process.env': {
+//         NODE_ENV: '"production"'
+//       }
+//     }),
+//     new webpack.optimize.UglifyJsPlugin({
+//       sourceMap: true,
+//       compress: {
+//         warnings: false
+//       }
+//     }),
+//     new webpack.LoaderOptionsPlugin({
+//       minimize: true
+//     })
+//   ])
+// }
 
 var finalConfig
 
