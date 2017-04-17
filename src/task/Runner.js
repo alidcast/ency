@@ -52,11 +52,11 @@ export default function createRunner (callbacks) {
   return {
     // For generator functions, on every yield, we store any cancelable promises
     // so that they can be canceled immediately upon cancelation
-    _cancelable: null,
+    _disposable: null,
 
     triggerCancel (ti) {
       if (ti.isFinished) return ti
-      if (this.cancelable) this.cancelable._cancel_() // dispose immediately
+      if (this._disposable) this._disposable.unsubscribe() // dispose immediately
       ti.isCanceled = true
       ti._updateComputed()
       // dropped instances are still "run" so that the runner can handle
@@ -97,7 +97,7 @@ async function runOperation (runner, ti, handle) {
       return handle.error.bind(null, ti, err)
     }
     let val = output.value
-    if (isObj(val) && val._cancel_) runner.cancelable = val
+    if (isObj(val) && val.unsubscribe) runner._disposable = val
     if (ti.isCanceled) return handle.cancel.bind(null, ti, oper)                // CANCELED / POST-YIELD
 
     val = await val
