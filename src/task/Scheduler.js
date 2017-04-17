@@ -1,4 +1,4 @@
-import createQueue from '../util/queue'
+import createQueue from '../util/Queue'
 import { pause } from '../util/async'
 
 /**
@@ -53,7 +53,7 @@ export default function createTaskScheduler (task, policies, autorun = true) {
 
     advance (ti = null) { // run instance directly OR get from waiting
       if (shouldRun()) {
-        if (!ti) ti = waiting.remove().pop()
+        if (!ti) ti = waiting.remove()
         task.lastStarted = ti
         startInstance(ti, delay)
           .then(() => this.finalize(ti))
@@ -73,7 +73,7 @@ export default function createTaskScheduler (task, policies, autorun = true) {
     },
 
     clear () { // cancel and clear all instances
-      const instances = [].concat(waiting.alias).concat(running.alias)
+      const instances = waiting.concat(running)
       cancelQueued(waiting, 'all').then(waiting.clear())
       cancelQueued(running, 'all') // running instances remove themselves
       task._updateState()
@@ -131,7 +131,7 @@ function cancelQueued (queue, type = 'race') {
   // If there's only one item in queue, then we just cancel it directly (this
   // made the task-graph demo smoother, so it's "noticably" faster)
   if (queue.size === 1) {
-    const ti = queue.pop()
+    const ti = queue.remove()
     if (ti.options.keepActive) return ti.dispose()
     else return ti._cancel()
   } else {
