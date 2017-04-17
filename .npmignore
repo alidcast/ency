@@ -1,4 +1,7 @@
+demo/
 src/
 test/
 .babelrc
+.eslintrc.js
+circle.yml
 webpack.config.js
