@@ -17,7 +17,8 @@ const baseConfig = {
     alias: {
       'vue$': 'vue/dist/vue.common.js', // vue standalone build
       'src': srcRoot,
-      'examples': resolve(__dirname, './examples')
+      'util': resolve(__dirname, './util')
+      'demo': resolve(__dirname, './demo')
     },
     modules: [
       srcRoot, "node_modules"
@@ -93,7 +94,7 @@ const prodConfig = {
     path: prodRoot,
     publicPath: '/dist/',
     filename: 'build.js',
-    library: 'vuency',
+    library: 'ency',
     libraryTarget: 'umd'
   },
   externals: {
