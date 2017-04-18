@@ -5,9 +5,18 @@ import createPolicies from './modifiers/policies'
 import createBindings from './modifiers/bindings'
 import createSubscriptions from './modifiers/subscriptions'
 
-var host
-export default function initTask (_host) {
+var host,
+    mods
+
+/**
+ * Initialize task factory.
+ *
+ * @param {Object} host - the task's context or component instance
+ * @param {Object} mods - additional task modifiers for task object
+ */
+export default function initTask (_host, _mods) {
   host = _host
+  mods = _mods
   return createTask
 }
 
@@ -15,7 +24,6 @@ export default function initTask (_host) {
  * A {Task} exposes state of all task instances and controls for creating
  * and destroying them.
  *
- * @param {Object} host - the task's component instance
  * @param {Function} operation - the task's core function
  * @param {Boolean} autorun - whether to run automatically (primarily for testing)
  * @constructor Task
@@ -75,7 +83,8 @@ export function createTask (operation, autorun = true) {
     // task modifiers
     ...configurations,
     ...subscriptions,
-    ...bindings
+    ...bindings,
+    ...mods
   }
 }
 

@@ -3,11 +3,11 @@ var resolve = require('path').resolve,
     merge = require('webpack-merge'),
     HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const projectRoot = resolve(__dirname, './'),
-      srcRoot = resolve(__dirname, './src'),
-      testRoot = resolve(__dirname, './test'),
-      devRoot = resolve(__dirname, './demo'),
-      prodRoot = resolve(__dirname, './dist')
+const projectRoot = resolve(__dirname, './')
+const srcRoot = resolve(__dirname, './src')
+const testRoot = resolve(__dirname, './test')
+const devRoot = resolve(__dirname, './dev')
+const prodRoot = resolve(__dirname, './dist')
 
 const baseConfig = {
   resolve: {
@@ -17,8 +17,8 @@ const baseConfig = {
     alias: {
       'vue$': 'vue/dist/vue.common.js', // vue standalone build
       'src': srcRoot,
-      'util': resolve(__dirname, './util'),
-      'demo': resolve(__dirname, './demo')
+      'dev': devRoot,
+      'util': resolve(__dirname, './util')
     },
     modules: [
       srcRoot, "node_modules"

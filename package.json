@@ -1,6 +1,6 @@
 {
   "name": "ency",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "Concurrency management for Javascript.",
   "author": "Alid Castano",
   "license": "MIT",
@@ -11,9 +11,9 @@
   "private": false,
   "main": "dist/build.js",
   "scripts": {
+    "codecov": "codecov",
     "unit": "cross-env NODE_ENV=development karma start test/unit/karma.conf.js",
     "test": "npm run unit -- --single-run",
-    "codecov": "codecov",
     "webpack:bundle": "cross-env NODE_ENV=production webpack --progress --hide-modules",
     "rollup:bundle": "cross-env NODE_ENV=production rollup -c rollup.config.js",
     "build": "rm -rf dist/ && npm run rollup:bundle",
