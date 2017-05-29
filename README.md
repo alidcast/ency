@@ -4,7 +4,7 @@
 
 ## Documentation
 
-The [Ency documentation](https://vuency.alidcastano.com) is a [nuxt.js](https://github.com/nuxt/nuxt.js) generated static site with interactive examples.
+The [Ency documentation](https://encyjs.alidcastano.com) is a [nuxt.js](https://github.com/nuxt/nuxt.js) generated static site with interactive examples.
 
 ## Libraries
 
@@ -12,8 +12,8 @@ This repository hosts the core Ency library. If you want to use Ency's concurren
 
 | Environment | Library |
 | ----------- | ------- |
-| Plain JavaScript | [ency](https://github.com/encyjs/ency) (this repo) |
-| Vue | [vuency](https://github.com/encyjs/vuency) |
+| Plain JavaScript | [Ency](https://github.com/encyjs/ency) (this repo) |
+| Vue | [Vuency](https://github.com/encyjs/vuency) |
 
 ## Why Ency?
 
