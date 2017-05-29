@@ -5,17 +5,13 @@ import createPolicies from './modifiers/policies'
 import createBindings from './modifiers/bindings'
 import createSubscriptions from './modifiers/subscriptions'
 
-var host,
-    mods
+var mods = {}
 
 /**
- * Initialize task factory.
+ * Initialize task factory with additional task modifiers.
  *
- * @param {Object} host - the task's context or component instance
- * @param {Object} mods - additional task modifiers for task object
  */
-export default function initTask (_host, _mods) {
-  host = _host
+export default function initTask (_mods) {
   mods = _mods
   return createTask
 }
@@ -29,6 +25,7 @@ export default function initTask (_host, _mods) {
  * @constructor Task
  */
 export function createTask (operation, autorun = true) {
+  const host = this
   const { policies, ...configurations } = createPolicies()
   const { options, ...bindings } = createBindings()
   const { subscriptions, ...callbacks } = createSubscriptions(host)

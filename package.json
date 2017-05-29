@@ -1,6 +1,6 @@
 {
   "name": "ency",
-  "version": "0.0.17",
+  "version": "0.0.19",
   "description": "Concurrency management for Javascript.",
   "author": "Alid Castano",
   "license": "MIT",

@@ -21,7 +21,7 @@ export default function createPolicies (_type = 'default', _num = 1, _time = 0) 
 
     /**
      *  Sets the scheduling rule for repeat calls.
-     *  @this the {Task} property where the task policy is destructured.
+     *  @this the {Task} property where the configurations are destructured.
      */
     flow (type, opts = {}) {
       assert(flowTypes.indexOf(type) > -1, `${type} is not a flow control option`)

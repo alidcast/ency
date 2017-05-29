@@ -1,5 +1,5 @@
 export default function assert (condition, msg) {
-  if (!condition) throw new Error(`[Vuency] ${msg}`)
+  if (!condition) throw new Error(`[Ency] ${msg}`)
 }
 
 export function isFn (fn) {
