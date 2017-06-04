@@ -34,6 +34,7 @@ export function createTask (operation, autorun = true) {
   const createInstance = initInstanceFactory(runner)
 
   let scheduler // bound on run
+
   return {
     _operation: operation,
 
