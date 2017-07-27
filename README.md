@@ -34,3 +34,7 @@ The additional benefits:
 * **Async helpers**: Common async utilities, such as `timeout` helpers, that are automatically cleanup when the operation is over, which ensures that UI interactions flow with minimal latency.
 
 If that isn't enough, Ency's API strikes a nice balance between declarative and imperative styles of programming, which makes complex code simple and fun to write.
+
+## License
+
+MIT
