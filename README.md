@@ -2,10 +2,6 @@
 
 > Enhanced concurrency primitives for Javascript. Gain complete control and transparency over the execution of concurrent and asynchronous operations, with almost no code.
 
-## Documentation
-
-The [Ency documentation](https://encyjs.alidcastano.com) is a [nuxt.js](https://github.com/nuxt/nuxt.js) generated static site with interactive examples.
-
 ## Libraries
 
 This repository hosts the core Ency library. If you want to use Ency's concurrency primitives you have the following options:
@@ -34,6 +30,10 @@ The additional benefits:
 * **Async helpers**: Common async utilities, such as `timeout` helpers, that are automatically cleanup when the operation is over, which ensures that UI interactions flow with minimal latency.
 
 If that isn't enough, Ency's API strikes a nice balance between declarative and imperative styles of programming, which makes complex code simple and fun to write.
+
+## Documentation
+
+The [Ency documentation](https://encyjs.alidcastano.com) is a [nuxt.js](https://github.com/nuxt/nuxt.js) generated static site with interactive examples.
 
 ## License
 
