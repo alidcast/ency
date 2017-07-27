@@ -33,7 +33,7 @@ If that isn't enough, Ency's API strikes a nice balance between declarative and 
 
 ## Documentation
 
-The [Ency documentation](https://encyjs.alidcastano.com) is a [nuxt.js](https://github.com/nuxt/nuxt.js) generated static site with interactive examples.
+The [Ency documentation](ency.now.sh/ency) is a [nuxt.js](https://github.com/nuxt/nuxt.js) and [nuxtent](https://github.com/nuxt-community/nuxtent) generated static site with interactive examples.
 
 ## License
 
