@@ -6,7 +6,7 @@ import assert, { isObj } from '../../util/assert'
 *  @constructs task policies
 */
 export default function createPolicies (_type = 'default', _num = 1, _time = 0) {
-  const flowTypes = ['default', 'enqueue', 'restart', 'drop']
+  const flowTypes = ['default', 'enqueue', 'restart', 'drop', 'keepLatest']
 
   const currentPolicies = {
     flow: _type,

@@ -11,11 +11,8 @@ const prodRoot = resolve(__dirname, './dist')
 
 const baseConfig = {
   resolve: {
-    extensions: [
-      '.js', '.vue'
-    ],
+    extensions: ['.js'],
     alias: {
-      'vue$': 'vue/dist/vue.common.js', // vue standalone build
       'src': srcRoot,
       'dev': devRoot,
       'util': resolve(__dirname, './util')
@@ -36,19 +33,6 @@ const baseConfig = {
         }
       },
       {
-        test: /\.vue$/,
-        loader: 'vue-loader',
-        options: {
-          loaders: {
-            // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
-            // the "scss" and "sass" values for the lang attribute to the right configs here.
-            // other preprocessors should work out of the box, no loader config like this nessessary.
-            'scss': 'vue-style-loader!css-loader!sass-loader',
-            'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
-          }
-        }
-      },
-      {
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
@@ -66,26 +50,28 @@ const baseConfig = {
 }
 
 const devConfig = {
-    entry: `${devRoot}/main.js`,
-    output: {
-      publicPath: '/'
-    },
-    devtool: '#eval-source-map',
-    performance: { hints: false },
-    plugins: [
-      new webpack.DefinePlugin({
-        'process.env': {
-          NODE_ENV: '"development"'
-        }
-      }),
-      new webpack.optimize.OccurrenceOrderPlugin(),
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoEmitOnErrorsPlugin(),
-      new HtmlWebpackPlugin({
-        template: `${devRoot}/index.html`,
-        inject: true
-      })
-    ]
+  entry: `${srcRoot}/index.js`,
+  output: {
+    publicPath: '/'
+  },
+  devtool: '#eval-source-map',
+  performance: { hints: false },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"development"'
+      }
+    })
+    // ,
+    // new webpack.optimize.OccurrenceOrderPlugin(),
+    // new webpack.HotModuleReplacementPlugin(),
+    // new webpack.NoEmitOnErrorsPlugin()
+    // ,
+    // new HtmlWebpackPlugin({
+    //   template: `${devRoot}/index.html`,
+    //   inject: true
+    // })
+  ]
 }
 
 // const prodConfig = {

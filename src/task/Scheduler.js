@@ -1,4 +1,4 @@
-import createQueue from '../util/Queue'
+import createQueue from '../util/queue'
 import { pause } from '../util/async'
 
 /**
@@ -16,15 +16,15 @@ export default function createTaskScheduler (task, policies, autorun = true) {
       { flow, maxRunning, delay } = policies
 
   function shouldDrop () {
-    return flow === 'drop' &&
-      // total queued reached concurrency limit
-      (waiting.size + running.size === maxRunning)
+    return flow === 'drop' && (waiting.size + running.size === maxRunning)
   }
 
   function shouldRestart () {
-    return flow === 'restart' &&
-      // curr running reached concurrency limit
-      running.size === maxRunning
+    return flow === 'restart' && running.size === maxRunning
+  }
+
+  function shouldKeep () {
+    return flow === 'keepLatest' && running.size === maxRunning
   }
 
   function shouldWait () {
@@ -32,9 +32,7 @@ export default function createTaskScheduler (task, policies, autorun = true) {
   }
 
   function shouldRun () {
-    return flow === 'default' ||
-      // concurrency freed up and there's atleast one waiting instance
-      (waiting.isActive && running.size < maxRunning)
+    return flow === 'default' || (waiting.isActive && running.size < maxRunning)
   }
 
   return {
@@ -45,6 +43,7 @@ export default function createTaskScheduler (task, policies, autorun = true) {
         this.finalize(ti, false)
       } else if (shouldWait()) {
         if (shouldRestart()) cancelQueued(running)
+        else if (shouldKeep()) cancelQueued(waiting)
         waiting.add(ti)
         if (autorun) this.advance()
       } else this.advance(ti)

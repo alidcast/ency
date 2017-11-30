@@ -227,4 +227,19 @@ describe('Task Scheduler', function () {
     expect(ti2.isResolved).to.be.true
     expect(ti1.isCanceled).to.be.true
   })
+
+  it ('(flow) keepLatest - drops middle waiting and runs first and last', async () => {
+    const latestPolicies = createPolicies('keepLatest', 1).policies
+    const latestScheduler = createScheduler(task, latestPolicies, true)
+    latestScheduler
+      .schedule(ti1) // run
+      .schedule(ti2) // canceled
+      .schedule(ti3) // run
+      await ti1._runningOperation
+      expect(ti1.isResolved).to.be.true
+      expect(ti2.isCanceled).to.be.true
+      expect(task.lastStarted).to.equal(ti3)
+      await ti3._runningOperation
+      expect(ti3.isResolved).to.be.true
+  })
 })
